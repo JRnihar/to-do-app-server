@@ -38,6 +38,24 @@ async function run() {
             const result = await listCollection.deleteOne(query);
             res.send(result);
         });
+        app.put('/list/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatUser = req.body;
+            console.log(updatUser);
+            const filter = { _id: ObjectId(id) }
+            const option = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    name: updatUser.name,
+                    task: updatUser.task
+                    
+
+                }
+            };
+            const result = await listCollection.updateOne(filter, updateDoc, option)
+            res.send(result);
+        });
+
 
 
     }
